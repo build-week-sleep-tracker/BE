@@ -1,16 +1,10 @@
 const session = require('supertest-session');
 const db = require('../../database/dbConfig');
-const SleepsModel = require('../models/sleepsModel');
-const UsersModel = require('../models/usersModel');
 const server = require('../server');
 
 beforeEach(() => db('sleeps')
   .truncate()
   .then(() => db('users').truncate()));
-
-async function createTestUser(email = 'test') {
-  await db('users').insert({ email, password: '1234' });
-}
 
 describe('Add and manipulate sleeps for users', () => {
   let authedSession = null;
@@ -31,7 +25,18 @@ describe('Add and manipulate sleeps for users', () => {
     const res = await authedSession(server)
       .post('/api/sleeps')
       .send({ sleep_time: '2019-07-29T21:53:00' })
-      .expect(200);
+      .expect(201);
     expect(res.body.user_id).toBe(1);
+  });
+
+  test('Can get all sleeps for user', async () => {
+    await authedSession(server)
+      .post('/api/sleeps')
+      .send({ sleep_time: '2019-07-29T21:53:00' })
+      .expect(201);
+    const res = await authedSession(server)
+      .get('/api/sleeps')
+      .expect(200);
+    expect(res.body).toHaveLength(1);
   });
 });
