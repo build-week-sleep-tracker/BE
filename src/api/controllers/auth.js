@@ -12,7 +12,12 @@ async function login(req, res) {
       if (!user) {
         res.status(404).json({ error: 'User not found' });
       } else if (await verifyPassword(email, password)) {
-        const clientUser = { id: user.id, email: user.email };
+        const clientUser = {
+          id: user.id,
+          email: user.email,
+          last_name: user.last_name,
+          first_name: user.first_name,
+        };
         req.session.user = clientUser;
         res.status(200).json({ user: clientUser });
       } else {
@@ -25,10 +30,10 @@ async function login(req, res) {
 }
 
 async function register(req, res) {
-  const { email, password } = req.body;
+  const { email, password, last_name, first_name } = req.body;
 
-  if (!email || !password) {
-    res.status(400).json({ error: 'Both email and password are required' });
+  if (!email || !password || !last_name || !first_name) {
+    res.status(400).json({ error: 'Email, password, first name and last name are required' });
   } else {
     try {
       let user = await UserDB.findByEmail(email);
@@ -36,8 +41,18 @@ async function register(req, res) {
         res.status(400).json({ error: 'User already exists with that email' });
       } else {
         const hash = await generateHash(password);
-        user = await UserDB.insert({ email, password: hash });
-        const clientUser = { id: user.id, email: user.email };
+        user = await UserDB.insert({
+          email,
+          password: hash,
+          first_name,
+          last_name,
+        });
+        const clientUser = {
+          id: user.id,
+          email: user.email,
+          last_name: user.last_name,
+          first_name: user.first_name,
+        };
         req.session.user = clientUser;
         res.status(200).json({ user: clientUser });
       }

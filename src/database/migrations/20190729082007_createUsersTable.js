@@ -5,7 +5,9 @@ exports.up = function migrate(knex) {
 			.string('email', 128)
 			.unique()
 			.notNullable();
-		tbl.string('password', 512).notNullable();
+    tbl.string('password', 512).notNullable();
+    tbl.string('first_name', 128).notNullable();
+    tbl.string('last_name', 128).notNullable();
 	});
 };
 
