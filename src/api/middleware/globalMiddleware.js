@@ -1,6 +1,7 @@
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
 const dbConfig = require('../../database/dbConfig.js');
@@ -10,6 +11,7 @@ module.exports = (server) => {
   server.use(express.json());
   server.use(helmet());
   server.use(cors());
+  server.use(cookieParser());
   server.use(session({
     name: 'sessionID',
     secret: cookieSecret,
