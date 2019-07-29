@@ -47,10 +47,16 @@ async function register(req, res) {
   }
 }
 
-async function logout(req, res) {
+function logout(req, res) {
   if (req.session.user && req.cookies.sessionID) {
     res.clearCookie('sessionID');
   }
   req.session.destroy();
   res.status(200).json({ message: 'Logged out' });
 }
+
+module.exports = {
+  login,
+  register,
+  logout,
+};
