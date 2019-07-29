@@ -11,6 +11,9 @@ exports.up = function migrate(knex) {
       .onDelete('CASCADE');
     tbl.datetime('sleep_time').notNullable();
     tbl.datetime('wake_time');
+    tbl.integer('wake_score').unsigned();
+    tbl.integer('day_score').unsigned();
+    tbl.integer('sleep_score').unsigned();
     tbl.float('score').unsigned();
   });
 };

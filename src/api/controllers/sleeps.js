@@ -15,13 +15,14 @@ async function addSleep(req, res) {
   const { sleep_time } = req.body;
   if (!sleep_time) {
     res.status(400).json({ error: 'start_time field is required' });
-  }
-  try {
-    const newSleep = { ...req.body, user_id: user.id };
-    const sleep = await SleepsDB.insert(newSleep);
-    res.status(201).json(sleep);
-  } catch (error) {
-    res.status(500).json({ error: "Couldn't add sleep" });
+  } else {
+    try {
+      const newSleep = { ...req.body, user_id: user.id };
+      const sleep = await SleepsDB.insert(newSleep);
+      res.status(201).json(sleep);
+    } catch (error) {
+      res.status(500).json({ error: "Couldn't add sleep" });
+    }
   }
 }
 
