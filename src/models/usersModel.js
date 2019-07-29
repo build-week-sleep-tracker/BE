@@ -1,34 +1,47 @@
 const db = require('../database/dbConfig');
 
-async function insert(user) {
-	return null;
+function findById(id) {
+  return db('users')
+    .where({ id })
+    .first();
+}
+
+function findByEmail(email) {
+  return db('users')
+    .where({ email })
+    .first();
+}
+
+function insert(user) {
+  return db('users')
+    .insert(user)
+    .then(ids => findById(ids[0]));
 }
 
 function getAll() {
-	return null;
+  return db('users');
 }
 
-function findById(id) {
-	return null;
-}
-
-function findByUsername(id) {
-	return null;
-}
-
-async function update(id) {
-	return null;
+function update(id, fields) {
+  return db('users')
+    .where({ id })
+    .update(fields)
+    .then(() => findById(id));
 }
 
 async function remove(id) {
-	return null;
+  const oldUser = await findById(id);
+  await db('users')
+    .where({ id })
+    .del();
+  return oldUser;
 }
 
 module.exports = {
-	insert,
-	getAll,
-	findById,
-	findByUsername,
-	update,
-	remove,
+  insert,
+  getAll,
+  findById,
+  findByEmail,
+  update,
+  remove,
 };
