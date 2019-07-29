@@ -1,4 +1,4 @@
-const db = require('../database/dbConfig');
+const db = require('../../database/dbConfig');
 
 function findByUser(id) {
   return db('sleeps').where({ user_id: id });
