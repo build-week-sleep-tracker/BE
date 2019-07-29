@@ -8,11 +8,10 @@ exports.up = function migrate(knex) {
 			.references('id')
 			.inTable('users')
 			.onUpdate('CASCADE')
-			.onDelete('CASCADE');
-		tbl.float('length').notNullable();
-		tbl.integer('score_wake').unsigned();
-		tbl.integer('score_day').unsigned();
-		tbl.integer('score_sleep').unsigned();
+      .onDelete('CASCADE');
+    tbl.datetime('sleep_time').notNullable();
+    tbl.datetime('wake_time');
+		tbl.float('score').unsigned();
 	});
 };
 
