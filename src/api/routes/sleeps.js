@@ -1,6 +1,8 @@
 const router = require('express').Router();
-const { getAll } = require('../controllers/sleeps');
+const { restricted } = require('../middleware/authMiddleware');
+const { getAll, addSleep } = require('../controllers/sleeps');
 
-router.post('/', getAll);
+router.get('/', restricted, getAll);
+router.post('/', restricted, addSleep);
 
 module.exports = router;
