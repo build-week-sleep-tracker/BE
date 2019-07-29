@@ -1,7 +1,7 @@
 const db = require('../database/dbConfig');
 
 function findByUser(id) {
-  return null;
+  return db('sleeps').where({ user_id: id });
 }
 
 function findById(id) {
@@ -9,7 +9,7 @@ function findById(id) {
     .where({ id })
     .first();
 }
-async function insert(sleep) {
+function insert(sleep) {
   return db('sleeps')
     .insert(sleep)
     .then(ids => findById(ids[0]));
@@ -19,19 +19,26 @@ function getAll() {
   return db('sleeps');
 }
 
-async function update(id) {
-	return null;
+function update(id, fields) {
+  return db('sleeps')
+    .where({ id })
+    .update(fields)
+    .then(() => findById(id));
 }
 
 async function remove(id) {
-	return null;
+  const oldSleep = await findById(id);
+  await db('sleeps')
+    .where({ id })
+    .del();
+  return oldSleep;
 }
 
 module.exports = {
-	insert,
-	getAll,
-	findById,
-	findByUser,
-	update,
-	remove,
+  insert,
+  getAll,
+  findById,
+  findByUser,
+  update,
+  remove,
 };
