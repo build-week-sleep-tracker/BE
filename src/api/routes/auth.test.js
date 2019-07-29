@@ -13,6 +13,7 @@ describe('Register and login users', () => {
       .expect(200);
     const users = await UsersModel.getAll();
     expect(users).toHaveLength(1);
+    expect(res.body.user).toEqual({ id: 1, email: 'test' });
   });
 
   test('Can login user and returns user', async () => {

@@ -1,11 +1,9 @@
 const db = require('../../database/dbConfig');
 const SleepsModel = require('./sleepsModel');
 
-beforeEach(() => {
-  return db('sleeps')
-    .truncate()
-    .then(() => db('users').truncate());
-});
+beforeEach(() => db('sleeps')
+  .truncate()
+  .then(() => db('users').truncate()));
 
 async function createTestUser(email = 'test') {
   await db('users').insert({ email, password: '1234' });
