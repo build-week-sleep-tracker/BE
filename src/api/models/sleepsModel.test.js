@@ -45,5 +45,5 @@ describe('Adding and manipulation sleeps table', () => {
     await SleepsModel.insert({ user_id: 2, sleep_time: '2019-07-29T21:53:00' });
     const sleeps = await SleepsModel.findByUser(2);
     expect(sleeps).toHaveLength(2);
-  })
+  });
 });

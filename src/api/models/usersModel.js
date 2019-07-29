@@ -19,7 +19,8 @@ function insert(user) {
 }
 
 function getAll() {
-  return db('users');
+  return db('users')
+    .select(['id', 'email']);
 }
 
 function update(id, fields) {
