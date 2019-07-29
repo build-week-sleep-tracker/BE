@@ -9,8 +9,7 @@ exports.up = function(knex) {
         .inTable('users')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
-        tbl.datetime('sleep_time').notNullable();
-        tbl.datetime('wake_time').notNullable();
+        tbl.float('length');
         tbl.integer('score_wake').unsigned();
         tbl.integer('score_day').unsigned();
         tbl.integer('score_sleep').unsigned();
