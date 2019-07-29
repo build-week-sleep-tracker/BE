@@ -1,19 +1,22 @@
 const db = require('../database/dbConfig');
 
-async function insert(sleep) {
-	return null;
-}
-
-function getAll() {
-	return null;
+function findByUser(id) {
+  return null;
 }
 
 function findById(id) {
-	return null;
+  return db('sleeps')
+    .where({ id })
+    .first();
+}
+async function insert(sleep) {
+  return db('sleeps')
+    .insert(sleep)
+    .then(ids => findById(ids[0]));
 }
 
-function findByUser(id) {
-	return null;
+function getAll() {
+  return db('sleeps');
 }
 
 async function update(id) {
