@@ -9,10 +9,11 @@ function findById(id) {
     .where({ id })
     .first();
 }
-function insert(sleep) {
-  return db('sleeps')
+async function insert(sleep) {
+  const [id] = await db('sleeps')
     .insert(sleep)
-    .then(ids => findById(ids[0]));
+    .returning('id');
+  return findById(id);
 }
 
 function getAll() {
