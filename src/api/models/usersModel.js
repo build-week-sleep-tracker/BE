@@ -12,10 +12,11 @@ function findByEmail(email) {
     .first();
 }
 
-function insert(user) {
-  return db('users')
+async function insert(user) {
+  const [id] = await db('users')
     .insert(user)
-    .then(ids => findById(ids[0]));
+    .returning('id');
+  return findById(id);
 }
 
 function getAll() {
