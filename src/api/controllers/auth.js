@@ -57,7 +57,7 @@ async function register(req, res) {
         res.status(200).json({ user: clientUser });
       }
     } catch (error) {
-      res.status(500).json(error.message);
+      res.status(500).json({ error: "Couln't register user" });
     }
   }
 }
