@@ -11,14 +11,18 @@ async function validateSleep(req, res, next) {
   }
 
   let { sleep_time, wake_time, score } = req.body;
-  score = Number(score);
-  score = score > 4 ? 4 : score;
-  req.sleep = {
-    user_id: req.user.id,
-    sleep_time,
-    wake_time,
-    score,
-  };
+  if (score) {
+    score = Number(score);
+    score = score > 4 ? 4 : score;
+  }
+  if (sleep_time || wake_time || score) {
+    req.sleep = {
+      user_id: req.user.id,
+      sleep_time,
+      wake_time,
+      score,
+    };
+  }
   next();
 }
 
