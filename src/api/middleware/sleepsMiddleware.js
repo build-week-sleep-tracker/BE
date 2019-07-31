@@ -10,7 +10,18 @@ async function validateSleep(req, res, next) {
     }
   }
 
-  const { sleep_time, wake_time, score } = req.body;
-  if ()
+  let { sleep_time, wake_time, score } = req.body;
+  score = Number(score);
+  score = score > 4 ? 4 : score;
+  req.sleep = {
+    user_id: req.user.id,
+    sleep_time,
+    wake_time,
+    score,
+  };
+  next();
+}
 
+module.exports = {
+  validateSleep;
 }
