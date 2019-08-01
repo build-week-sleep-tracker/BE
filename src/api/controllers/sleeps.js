@@ -35,15 +35,11 @@ async function updateSleep(req, res) {
 async function deleteSleep(req, res) {
   const { user } = req.session;
   let sleep = await SleepsDB.findById(Number(req.params.id));
-  if (sleep.user_id !== user.id) {
-    res.status(400).json({ error: "Sleep doesn't belong to user" });
-  } else {
-    try {
-      sleep = await SleepsDB.remove(sleep.id);
-      res.status(200).json(sleep);
-    } catch (error) {
-      res.status(500).json({ error: "Couldn't delete sleep"});
-    }
+  try {
+    sleep = await SleepsDB.remove(sleep.id);
+    res.status(200).json(sleep);
+  } catch (error) {
+    res.status(500).json({ error: "Couldn't delete sleep" });
   }
 }
 
