@@ -34,7 +34,6 @@ async function remove(id) {
     .del();
   return oldSleep;
 }
-
 module.exports = {
   insert,
   getAll,

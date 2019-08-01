@@ -28,4 +28,4 @@ async function validateSleep(req, res, next) {
 
 module.exports = {
   validateSleep,
-}
+};

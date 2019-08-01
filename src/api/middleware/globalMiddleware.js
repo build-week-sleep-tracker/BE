@@ -9,7 +9,7 @@ const { cookieSecret } = require('../secrets');
 
 module.exports = (server) => {
   server.use(express.json());
-  server.user(cors({
+  server.use(cors({
     withCridentials: true,
     origin: 'https://bw-sleep-tracker-fe.netlify.com',
   }));

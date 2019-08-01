@@ -43,6 +43,16 @@ async function deleteSleep(req, res) {
   }
 }
 
+/* async function getReccomenedSleep(req, res) {
+  try {
+    const sleeps = await SleepsDB.findByUser(req.user.id);
+
+    sleeps.forEach()
+  } catch (error) {
+    
+  }
+} */
+
 module.exports = {
   getAll,
   addSleep,

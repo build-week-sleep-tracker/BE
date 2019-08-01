@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.use('/', authRouter);
 router.use('/sleeps', sleepRouter);
-router.usr('/user', userRouter);
+router.use('/user', userRouter);
 
 module.exports = router;
