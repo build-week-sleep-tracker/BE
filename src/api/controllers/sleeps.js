@@ -51,8 +51,10 @@ async function getRecommenedSleep(req, res) {
         const start = new Date(sleep.sleep_time);
         const end = new Date(sleep.wake_time);
         const delta = end.getTime() - start.getTime();
-        totalTime += delta;
-        count++;
+        if (delta > 0) {
+          totalTime += delta;
+          count++;
+        }
       }
     })
     const avg = totalTime / count;
