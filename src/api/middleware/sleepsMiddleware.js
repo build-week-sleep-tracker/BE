@@ -1,7 +1,6 @@
 const SleepsDB = require('../models/sleepsModel');
 
 async function validateSleep(req, res, next) {
-  req.user = req.session.user;
   if (req.params.id) {
     const sleep = await SleepsDB.findById(Number(req.params.id));
     if (sleep.user_id !== req.user.id) {
