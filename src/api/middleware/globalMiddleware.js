@@ -9,12 +9,16 @@ const { cookieSecret } = require('../secrets');
 
 module.exports = (server) => {
   server.use(express.json());
-  server.use((req, res, next) => {
+  server.user(cors({
+    withCridentials: true,
+    origin: 'https://bw-sleep-tracker-fe.netlify.com',
+  }));
+/*   server.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, Set-Cookie, Access-Control-Request-Method');
     res.setHeader('Access-Control-Allow-Origin', 'https://bw-sleep-tracker-fe.netlify.com');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     next();
-  });
+  }); */
   server.use(cookieParser());
   server.use(session({
     name: 'sessionID',
