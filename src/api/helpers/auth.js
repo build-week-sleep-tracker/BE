@@ -3,10 +3,10 @@ const jwt = require('jsonwebtoken');
 const UsersDB = require('../models/usersModel');
 const { jwtSecret } = require('../secrets');
 
-async function generateToken(user) {
+function generateToken(user) {
   const payload = {
     sub: user.id,
-    username: user.username,
+    email: user.email,
   };
 
   const options = {
