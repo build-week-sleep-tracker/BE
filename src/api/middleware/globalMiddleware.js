@@ -27,6 +27,7 @@ module.exports = (server) => {
       maxAge: 1000 * 60 * 60,
       secure: false,
       httpOnly: false,
+      sameSite: false,
     },
     resave: false,
     saveUninitialized: true,
