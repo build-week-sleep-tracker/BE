@@ -27,7 +27,7 @@ module.exports = (server) => {
       maxAge: 1000 * 60 * 60,
       secure: false,
       httpOnly: false,
-      sameSite: false,
+      sameSite: 'lax',
       domain: 'https://bw-sleep-tracker.herokuapp.com',
     },
     resave: false,
