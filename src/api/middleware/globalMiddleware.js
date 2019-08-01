@@ -21,8 +21,8 @@ module.exports = (server) => {
     secret: cookieSecret,
     cookie: {
       maxAge: 1000 * 60 * 60,
-      secure: false,
-      httpOnly: true,
+      secure: true,
+      httpOnly: false,
     },
     resave: false,
     saveUninitialized: true,
