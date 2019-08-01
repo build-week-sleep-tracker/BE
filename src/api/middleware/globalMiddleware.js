@@ -11,6 +11,10 @@ module.exports = (server) => {
   server.use(express.json());
   server.use(helmet());
   server.use(cors());
+  server.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Headers', 'Set-Cookie')
+    next();
+  })
   server.use(cookieParser());
   server.use(session({
     name: 'sessionID',
