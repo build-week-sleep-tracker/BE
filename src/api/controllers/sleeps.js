@@ -58,7 +58,7 @@ async function getRecommenedSleep(req, res) {
       }
     })
     const avg = totalTime / count;
-    res.status(200).json({ average: avg });
+    res.status(200).json({ recommended: avg });
   } catch (error) {
     res.status(500).json({ error: "Couldn't get recommendation" });
   }
