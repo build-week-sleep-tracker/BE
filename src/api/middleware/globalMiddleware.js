@@ -9,12 +9,10 @@ const { cookieSecret } = require('../secrets');
 
 module.exports = (server) => {
   server.use(express.json());
-  server.use(helmet());
   server.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, Set-Cookie, Access-Control-Request-Method');
     res.setHeader('Access-Control-Allow-Origin', 'https://bw-sleep-tracker-fe.netlify.com');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.setHeader('Content-Type', 'application/json; charset=utf-8');
     next();
   });
   server.use(cookieParser());
