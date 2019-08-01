@@ -24,7 +24,7 @@ async function addSleep(req, res) {
 
 async function updateSleep(req, res) {
   try {
-    const sleep = await SleepsDB.update(req.sleep);
+    const sleep = await SleepsDB.update(Number(req.params.id) ,req.sleep);
     res.status(200).json(sleep);
   } catch (error) {
     res.status(500).json({ error: "Couldn't update sleep" });
@@ -41,19 +41,31 @@ async function deleteSleep(req, res) {
   }
 }
 
-/* async function getReccomenedSleep(req, res) {
+async function getRecommenedSleep(req, res) {
   try {
-    const sleeps = await SleepsDB.findByUser(req.user.id);
-
-    sleeps.forEach()
+    const sleeps = await SleepsDB.getTop(req.user.id, 10);
+    let count = 0;
+    let totalTime = 0;
+    sleeps.forEach(sleep => {
+      if(sleep.sleep_time && sleep.wake_time) {
+        const start = new Date(sleep.sleep_time);
+        const end = new Date(sleep.wake_time);
+        const delta = end.getTime() - start.getTime();
+        totalTime += delta;
+        count++;
+      }
+    })
+    const avg = totalTime / count;
+    res.status(200).json({ average: avg });
   } catch (error) {
-    
+    res.status(500).json({ error: "Couldn't get recommendation" });
   }
-} */
+}
 
 module.exports = {
   getAll,
   addSleep,
   updateSleep,
   deleteSleep,
+  getRecommenedSleep,
 };
