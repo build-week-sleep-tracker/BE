@@ -3,6 +3,7 @@ const SleepsDB = require('../models/sleepsModel');
 async function validateSleep(req, res, next) {
   if (req.params.id) {
     const sleep = await SleepsDB.findById(Number(req.params.id));
+    if (!sleep) return;
     if (sleep.user_id !== req.user.id) {
       res.status(400).json({ error: "Sleep doesn't belong to user" });
       return;
