@@ -28,6 +28,7 @@ module.exports = (server) => {
       secure: false,
       httpOnly: false,
       sameSite: false,
+      domain: 'https://bw-sleep-tracker.herokuapp.com',
     },
     resave: false,
     saveUninitialized: true,
