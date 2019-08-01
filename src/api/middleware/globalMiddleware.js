@@ -11,7 +11,6 @@ module.exports = (server) => {
   server.use(express.json());
   server.use(helmet());
   server.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Headers', 'Set-Cookie');
     res.setHeader('Access-Control-Allow-Origin', 'https://bw-sleep-tracker-fe.netlify.com');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     next();
