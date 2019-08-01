@@ -34,6 +34,13 @@ async function remove(id) {
     .del();
   return oldSleep;
 }
+
+async function getTop(user, count) {
+  return db('sleeps')
+    .where({ user_id: user })
+    .orderBy({ column: 'score', order: 'desc' })
+    .limit(count);
+}
 module.exports = {
   insert,
   getAll,
