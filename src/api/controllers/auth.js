@@ -1,4 +1,4 @@
-const { generateHash, verifyPassword } = require('../helpers/auth');
+const { generateHash, verifyPassword, generateToken } = require('../helpers/auth');
 const UserDB = require('../models/usersModel');
 
 async function login(req, res) {
@@ -18,8 +18,8 @@ async function login(req, res) {
           last_name: user.last_name,
           first_name: user.first_name,
         };
-        req.session.user = clientUser;
-        res.status(200).json({ user: clientUser });
+        const token = generateToken(user);
+        res.status(200).json({ user: clientUser, token });
       } else {
         res.status(403).json({ error: 'Wrong password' });
       }
@@ -53,8 +53,8 @@ async function register(req, res) {
           last_name: user.last_name,
           first_name: user.first_name,
         };
-        req.session.user = clientUser;
-        res.status(200).json({ user: clientUser });
+        const token = generateToken(user);
+        res.status(200).json({ user: clientUser, token });
       }
     } catch (error) {
       res.status(500).json({ error: "Couln't register user" });
@@ -62,16 +62,7 @@ async function register(req, res) {
   }
 }
 
-function logout(req, res) {
-  if (req.session.user && req.cookies.sessionID) {
-    res.clearCookie('sessionID');
-  }
-  req.session.destroy();
-  res.status(200).json({ message: 'Logged out' });
-}
-
 module.exports = {
   login,
-  register,
-  logout,
+  register, 
 };

@@ -35,6 +35,14 @@ async function remove(id) {
   return oldSleep;
 }
 
+async function getTop(user, count) {
+  return db('sleeps')
+    .where({ user_id: user })
+    .whereNotNull('wake_time')
+    .whereNotNull('score')
+    .orderBy('score', 'desc')
+    .limit(count);
+}
 module.exports = {
   insert,
   getAll,
@@ -42,4 +50,5 @@ module.exports = {
   findByUser,
   update,
   remove,
+  getTop,
 };
